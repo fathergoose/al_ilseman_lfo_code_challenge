@@ -10,4 +10,5 @@ HEADERS = {'content-type': 'application/json'}
         query=r'^income=\d+\&zipcode=\d+\&age=\d'
         )
 def customer_scoring_query_mock(self, url, request):
-    return {'propensity': 0.26532, 'ranking': 'C'}
+    content = {'propensity': 0.26532, 'ranking': 'C'} 
+    return response(200, content, HEADERS, None, 5, request)
