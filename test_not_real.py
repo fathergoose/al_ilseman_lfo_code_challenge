@@ -19,7 +19,7 @@ class TestNotReal(unittest.TestCase):
         self.assertIsInstance(results, dict)
         self.assertTrue('propensity' in results)
         self.assertTrue('ranking' in results)
-        self.assertEqual(results['ranking'], 'B')
+        self.assertEqual(results['ranking'], 'C')
 
 if __name__ == '__main__':
     unittest.main()
