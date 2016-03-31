@@ -21,5 +21,10 @@ class TestNotReal(unittest.TestCase):
         self.assertTrue('ranking' in results)
         self.assertEqual(results['ranking'], 'C')
 
+    def test_get_customer_scroing_without_arguments(self):
+        results = not_real.get_customer_scoring()
+
+        self.assertNotEqual(results, None)
+
 if __name__ == '__main__':
     unittest.main()
