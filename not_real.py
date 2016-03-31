@@ -6,6 +6,7 @@ def get_customer_scoring(*args):
 
     if len(args) < 1:
         print('ERROR not_real.get_customer_scoring() requires minimum one argument')
+        return None
 
     if len(args) == 1:
         uri = 'http://{0}/customer_scoring?income={1}'\
