@@ -26,5 +26,20 @@ class TestNotReal(unittest.TestCase):
 
         self.assertEqual(results, None)
 
+    @with_httmock(mocks.not_real.customer_scoring_query_mock)
+    def test_get_customer_scoring_with_too_many_arguments(self):
+        income = 60000
+        zipcode = 60626
+        age = 27
+
+        results = not_real.get_customer_scoring(income, zipcode, age, 4, 5, 'taco')
+
+        self.assertNotEqual(results, None)
+        self.assertIsInstance(results, dict)
+        self.assertTrue('propensity' in results)
+        self.assertTrue('ranking' in results)
+        self.assertEqual(results['ranking'], 'C')
+
+
 if __name__ == '__main__':
     unittest.main()
