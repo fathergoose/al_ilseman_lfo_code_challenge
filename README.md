@@ -20,4 +20,12 @@ depending on whether 1, 2, or 3 parameters are passed.
 
 ## Bonus
 
-I made a minimal sinatra service to respond to the library as well. I got it woking by putting 'not_real.com' in my /etc/hosts file pointing back to localhost, then use nginx to pass between ports 80 and 4567.
+I made a minimal sinatra service to respond to the library as well. I got it woking by putting 'not_real.com' in my /etc/hosts file pointing back to localhost, 
+```
+# echo '127.0.0.1 not_real.com' >> /etc/hosts
+```
+
+then use nginx to pass between ports 80 and 4567 by linking nginx-proxy into `sites-enabled`.
+```
+# ln -s nginx-proxy /etc/nginx/sites-enabled/
+```
