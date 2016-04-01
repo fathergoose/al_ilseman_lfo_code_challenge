@@ -7,7 +7,7 @@ HEADERS = {'content-type': 'application/json'}
         netloc=NETLOC,
         path='/customer_scoring',
         method='get',
-        query=r'^income=\d+\&zipcode=\d+\&age=\d+$'
+        query=r'^income=\d+$|^income=\d+\&zipcode=\d+$|^income=\d+\&zipcode=\d+\&age=\d+$'
         )
 def customer_scoring_query_mock(url, request):
     content = {'propensity': 0.26532, 'ranking': 'C'} 
