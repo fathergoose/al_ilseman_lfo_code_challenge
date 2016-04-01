@@ -1,8 +1,7 @@
-## Dependencies
-
-Python 2.7.10
-httmock==1.2.5
-requests==2.7.0
+Version: Python 2.7.10
+Dependencies: 
+    httmock==1.2.5
+    requests==2.7.0
 
 ## Useage
 
@@ -17,5 +16,8 @@ depending on whether 1, 2, or 3 parameters are passed.
 
 ## Testing
 
-`$ python test_not_real.py` will run the test suite. The httmock library is being used to provide mock api endpoint responses. This mock api is designed to match querries with 1 to 3 parameters and provide a response of `{'propensity': 1.26532, 'ranking': 'C'}` regardless of the query.
+`python test_not_real.py` will run the test suite. The httmock library is being used to provide mock api endpoint responses. This mock api is designed to match querries with 1 to 3 parameters and provide a response of `{'propensity': 1.26532, 'ranking': 'C'}` regardless of the query.
 
+## Bonus
+
+I made a minimal sinatra service to respond to the library as well. I got it woking by putting 'not_real.com' in my /etc/hosts file pointing back to localhost, then use nginx to pass between ports 80 and 4567.
