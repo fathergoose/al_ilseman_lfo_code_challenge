@@ -9,7 +9,7 @@ def format_uri(**kwargs):
     print(base_uri)
     parameters = sorted(kwargs.keys())
     for param in parameters:
-        lilpiece = param + '=' + kwargs[param]
+        lilpiece = param + '=' + str(kwargs[param])
         lilpieces = []
         lilpieces.append(lilpiece)
 
