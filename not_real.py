@@ -2,6 +2,21 @@ import requests
 
 BASE_DOMAIN = 'not_real.com'
 
+# PLAN: Loop over the givn args and append their values to the uri
+
+def format_uri(**kwargs):
+    base_uri = 'http://' + BASE_DOMAIN + '/customer_scoring?'
+    print(base_uri)
+    parameters = sorted(kwargs.keys())
+    for param in parameters:
+        lilpiece = param + '=' + kwargs[param]
+        lilpieces = []
+        lilpieces.append(lilpiece)
+
+    query_string = '&'.join(lilpieces)
+    formatted_uri = base_uri + query_string
+    return formatted_uri
+
 def get_customer_scoring(*args):
 
     if len(args) < 1:
