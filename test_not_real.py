@@ -66,6 +66,20 @@ class TestNotReal(unittest.TestCase):
         self.assertTrue('ranking' in results)
         self.assertEqual(results['ranking'], 'C')
 
+    @with_httmock(mocks.not_real.customer_scoring_query_mock)
+    def test_get_customer_scoring_with_keyword_argmuents(self):
+        i = 60000 # prevent naming colisions
+        z = 60626
+        a = 27
+
+        results_w_three = not_real.get_customer_scoring(income=i, zipcode=z, age=a)
+
+        self.assertNotEqual(results_w_three, None)
+        self.assertIsInstance(results_w_three, dict)
+        self.assertTrue('propensity' in results_w_three)
+        self.assertTrue('ranking' in results_w_three)
+        self.assertEqual(results_w_three['ranking'], 'C')
+
 
 if __name__ == '__main__':
     unittest.main()
