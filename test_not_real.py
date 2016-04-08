@@ -72,13 +72,25 @@ class TestNotReal(unittest.TestCase):
         z = 60626
         a = 27
 
-        results_w_three = not_real.get_customer_scoring(income=i, zipcode=z, age=a)
+        results_w_kwargs = not_real.get_customer_scoring(income=i, zipcode=z, age=a)
 
-        self.assertNotEqual(results_w_three, None)
-        self.assertIsInstance(results_w_three, dict)
-        self.assertTrue('propensity' in results_w_three)
-        self.assertTrue('ranking' in results_w_three)
-        self.assertEqual(results_w_three['ranking'], 'C')
+        self.assertNotEqual(results_w_kwargs, None)
+        self.assertIsInstance(results_w_kwargs, dict)
+        self.assertTrue('propensity' in results_w_kwargs)
+        self.assertTrue('ranking' in results_w_kwargs)
+        self.assertEqual(results_w_kwargs['ranking'], 'C')
+
+    @with_httmock(mocks.not_real.customer_scoring_query_mock)
+    def test_get_customer_scoring_with_a_dict(self):
+        dict_of_opts = { 'income': 60000, 'zipcode': 60626, 'age': 27 }
+
+        results_w_dict = not_real.get_customer_scoring(dict_of_opts)
+
+        self.assertNotEqual(results_w_dict, None)
+        self.assertIsInstance(results_w_dict, dict)
+        self.assertTrue('propensity' in results_w_dict)
+        self.assertTrue('ranking' in results_w_dict)
+        self.assertEqual(results_w_dict['ranking'], 'C')
 
 
 if __name__ == '__main__':
