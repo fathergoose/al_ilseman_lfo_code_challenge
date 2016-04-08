@@ -1,3 +1,5 @@
+# Original Documentation
+
 ## Requirements
 This library was build an run using python 2.7.10 and makes use of httmock==1.2.5 and requests==2.7.0. 
     
@@ -35,3 +37,36 @@ It would have made sense to use flask as opposed to sinatra, but I'm more fluent
 ### Use the bonus
 
 The bonus com.rb assumes the gems sinatra 1.4.7, thin 1.6.4, and json 1.8.3 installed as well as ruby 2.2.3. The web server is an executable so just `./com.rb` and it should fire up. 
+
+# Revisions
+
+*How would you better handle bad input from your users?*
+I have included the ability to specify keyword arguments, a dictionary of arguments, and have included also included an interactive script so the program could be used stand alone. It was difficult for me to decide how to restrict the users input without understanding anything about the server and it's limitations.
+
+*How would you be more clear about errors (user errors, internal errors, server errors)*
+The old version of the program had two types of errors, print() errors I wrote and exceptions which would crash the client. The server / web responses are now handled more gracefully with a try/except block and only 'dangerous' errors stop things. Non 2xx response codes are considered a non-dangerous error and the status codes are now passed in lieu of a response.
+
+*How would you simplify the usage of your client?*
+I looked into making a GUI, but decided that in the amount of time I had it would be more copy pasting than understanding so I went with an interactive script. It's far from fancy, but it illustrates the point. In addition to the script, I also made get_customer_scoring() more flexible in the types of inputs it is willing to accept.
+
+*How would you make your code less verbose/more DRY?*
+Tried to move all of the fancy logic into separate functions. Allowing get_customer_scoring() to be about high level logic and control flow.
+
+*How would you better handle bad responses from the server?*
+See above.
+
+*How would you package your client up for installation via PyPI?*
+I packaged the module and published it to https://testpypi.python.org/pypi. It is available under the name not_real.
+```
+pip install -i https://testpypi.python.org/pypi not_real
+```
+I did this following the instructions found [here](https://wiki.python.org/moin/TestPyPI) among other places.
+
+*How would you handle automatic installation of requirements (preferably in a way that doesn’t pollute your core language environment)?*
+You can see in this package, I have installed and am now using virtualenv and initializing it like so:
+```
+virtualenv ENV --no-site-packages --verbose > virt_env.log 
+```
+The redirect into virt_env.log was because I wanted to see what was going on and keep it after I was done with this terminal.
+
+Now one is able to `source ENV/bin/activate` and let virtualenv take over our shell. This will intercept calls to any python related executables and redirect them to the versions found inside the `ENV` directory. Also, anything we install with pip will also be put under `ENV` so we can run the command from the previous question and install my silly little module  in it's own little sandbox.
