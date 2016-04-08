@@ -16,6 +16,7 @@ def format_uri(kwargs):
     # Then flip the whole stack once finished
     lilpieces.reverse()
     # That is essentially what is going on here
+    # And now I see that all this param parsing can be done with requests :(
     query_string = '&'.join(lilpieces)
     formatted_uri = base_uri + query_string
     return formatted_uri
@@ -27,6 +28,17 @@ def key_up_args(args):
     keyed_args = dict(zip(sliced_args, args))
     return keyed_args
 
+def submit_request(uri):
+    try:
+        response = requests.get(uri)
+        if not response.status_code // 100 == 2: # floor divide to make sure it's a 2xx response
+            return 'ERROR: The server returned {}'.format(response)
+        else:
+            return response.json()
+    except requests.exceptions.RequestException as err:
+        return 'ERROR: {}'.format(err)
+        sys.exit(1) # Something is way wrong
+
 def get_customer_scoring(*args, **kwargs):
     if len(args) < 1 and len(kwargs) < 1:
         # Throws error message
@@ -35,20 +47,23 @@ def get_customer_scoring(*args, **kwargs):
     elif len(kwargs) > 0:
         # let keyword arguments override plain args
         uri = format_uri(kwargs)
-        response = requests.get(uri)
-        response.raise_for_status()
-        return response.json()
+        response = submit_request(uri)
+        return response
+            
+    elif type(args[0]) is dict:
+        # allow a dict of options too
+        uri = format_uri(args[0])
+        response = submit_request(uri)
+        return response
     else: 
+        # construct error message from extra arguments
         extra_args = map(lambda x: str(x), args[3:]) if len(args) > 3 else False
         if extra_args != False:
             message = 'WARNING ' + ', '.join(extra_args) +\
                     ' were omitted, max 3 parameters allowed'
             print(message)
         keyed_args = key_up_args(args[:3])
-        print("##########"+"keyedarrgs")
-        print(keyed_args)
         uri = format_uri(keyed_args) 
-        response = requests.get(uri)
-        response.raise_for_status()
-        return response.json()
+        response = submit_request(uri)
+        return response
 
