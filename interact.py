@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import not_real
 
 def main():
