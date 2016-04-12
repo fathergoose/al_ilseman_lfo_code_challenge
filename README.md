@@ -60,7 +60,7 @@ Tried to move all of the fancy logic into separate functions. Allowing `get_cust
 See above. Bad server requests are now just passed allong more similarly to a regular response allowing the user to see the resoponse code and keep going.
 
 *How would you package your client up for installation via PyPI?*
-I packaged the module and published it to https://testpypi.python.org/pypi. It is available under the name not_real.
+I packaged the module and published it to https://testpypi.python.org/pypi. It is available under the name `not_real`.
 ```
 pip install -i https://testpypi.python.org/pypi not_real
 ```
@@ -69,8 +69,7 @@ To avoid polluting of the real PyPI, I have published my module to the PyPI test
 *How would you handle automatic installation of requirements (preferably in a way that doesn’t pollute your core language environment)?*
 Virtualenv is a python tool to allow for just such requirements. After installing virtualenv with pip, it can be initialized like so:
 ```
-virtualenv ENV --no-site-packages --verbose > virt_env.log 
+virtualenv ENV --no-site-packages --verbose
 ```
-I chose to redirect into virt_env.log was because I wanted to see what was going on and keep it after I was done with this terminal.
 
 Now that virtualenv is installed in initialized one is able to `source ENV/bin/activate` and let virtualenv take over our shell. This will intercept calls to any python related executables and redirect them to the versions found inside the `ENV` directory. Also, anything we install with pip will also be put under `ENV`. This means we can run the install command from the previous question and my silly little module will be placed in it's own little sandbox under `ENV/`.
