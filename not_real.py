@@ -1,6 +1,7 @@
 import requests
 
 BASE_DOMAIN = 'not_real.com'
+path = 'http://' + BASE_DOMAIN + '/customer_scoring'
 
 
 def format_uri(kwargs):
@@ -26,11 +27,11 @@ def key_up_args(args):
     return keyed_args
 
 
-def submit_request(uri):
+def submit_request(cust_info):
 
 
     try:
-        response = requests.get(uri)
+        response = requests.get(path, params=cust_info)
         if not response.status_code // 100 == 2:
             return 'ERROR: The server returned {}'.format(response)
         else:
@@ -47,12 +48,12 @@ def get_customer_scoring(*args, **kwargs):
         print('ERROR not_real.get_customer_scoring() requires minimum one argument')
         return None
     elif len(kwargs) > 0:
-        uri = format_uri(kwargs)
-        response = submit_request(uri)
+        #uri = format_uri(kwargs)
+        response = submit_request(kwargs)
         return response
     elif type(args[0]) is dict:
-        uri = format_uri(args[0])
-        response = submit_request(uri)
+        #uri = format_uri(args[0])
+        response = submit_request(args[0])
         return response
     else: 
         if len(args) > 3:
@@ -61,6 +62,6 @@ def get_customer_scoring(*args, **kwargs):
                       ' were omitted, max 3 parameters allowed'
             print(message)
         keyed_args = key_up_args(args[:3])
-        uri = format_uri(keyed_args) 
-        response = submit_request(uri)
+        # uri = format_uri(keyed_args) 
+        response = submit_request(keyed_args)
         return response
